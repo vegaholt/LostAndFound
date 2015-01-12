@@ -9,29 +9,51 @@ namespace LostAndFound.Models
     {
         public int ID { get; set; }
 
+        public string UserId { get; set; }
+
+        [Display(Name = "Tittel")]
         public string Name { get; set; }
-        
+
+        [Display(Name = "Beskrivelse")]
         public string Description { get; set; }
 
+        [Display(Name = "Kategori")]
         public Category Category { get; set; }
 
+        [Display(Name = "Bilde")]
         public string ImgUrl { get; set; }
 
+        [Display(Name = "Finnerlønn")]
         public double Reward { get; set; }
 
+        [Display(Name = "Valutta")]
         public string Currency { get; set; }
+
+        [Display(Name = "Eierskapsbevis")]
+        public string Claim { get; set; }
 
         public double Lat { get; set; }
         
         public double Lon { get; set; }
 
-        //public string County { get; set; }
+        [Display(Name="Fylke")]
+        public County County { get; set; }
 
+        [Display(Name = "Adresse")]
+        public string Adress { get; set; }
+        
+        [Display(Name = "Dato funnet")]
         public DateTime FoundDate { get; set; }
 
-        public DateTime LostDate { get; set; }
+        [Display(Name = "Dato tapt, fra")]
+        public DateTime LostDateFrom { get; set; }
 
+        [Display(Name = "Dato tapt, til")]
+        public DateTime LostDateTo { get; set; }
+
+        [Required]
         public bool Lost { get; set; }
+
     }
 
     public class MyItemsViewModel 

@@ -17,12 +17,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a class="navbar-brand">LostAndFound</a>
+                <!--@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })-->
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Funnet", "Index", "Items", new {lost = false}, null)</li>
-                    <li>@Html.ActionLink("Tapt", "Index", "Items", new {lost = true}, null)</li>
+                    <li>@Html.ActionLink("Tapt", "Index", "Items", new { lost = true }, null)</li>
+                    <li>@Html.ActionLink("Registrer gjenstand", "Create", "Items")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

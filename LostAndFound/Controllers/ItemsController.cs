@@ -16,6 +16,16 @@ namespace LostAndFound.Controllers
     {
         private ItemDBContext db = new ItemDBContext();
 
+        protected ApplicationDbContext ApplicationDbContext { get; set; }
+
+        protected UserManager<ApplicationUser> UserManager { get; set; }
+
+        public ItemsController() 
+        {
+            this.ApplicationDbContext = new ApplicationDbContext();
+            this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
+        }
+
         // GET: Items
         public ActionResult Index(bool lost = false)
         {
@@ -29,17 +39,24 @@ namespace LostAndFound.Controllers
         public ActionResult MyItems()
         {
             var userId = User.Identity.GetUserId();
-            var userName = User.Identity.GetUserName();
 
             if (userId != null)
             {
-                ViewBag.User = userName;
+                var foundItemsList = new List<Item>();
+                var foundItems = db.Items.Where(x=>x.UserId == userId && x.Lost == false).ToList();
+                foundItemsList.AddRange(foundItems);
+                
+                var lostItemsList = new List<Item>();
+                var lostItems = db.Items.Where(x=>x.UserId == userId && x.Lost == true).ToList();
+                lostItemsList.AddRange(lostItems);
+                
+                MyItemsViewModel viewModel = new MyItemsViewModel() 
+                {
+                    FoundItems = foundItems,
+                    LostItems = lostItems
+                };
 
-                var list = new List<Item>();
-                var items = db.Items.ToList();
-                list.AddRange(items);
-
-                return View(list);
+                return View(viewModel);
             }
             else
             {
@@ -63,6 +80,7 @@ namespace LostAndFound.Controllers
         }
 
         // GET: Items/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -73,10 +91,14 @@ namespace LostAndFound.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Description,ImgUrl,Reward,Currency,Lat,Lon,FoundDate,LostDate,Lost")] Item item)
+        public ActionResult Create([Bind(Include = "ID,UserId,Name,Description,Category,ImgUrl,Reward,Currency,Claim,Lat,Lon,County,Adress,FoundDate,LostDateFrom,LostDateTo,Lost")] Item item)
         {
             if (ModelState.IsValid)
             {
+                //Add user to the model
+                var userId = User.Identity.GetUserId();
+                item.UserId = userId;
+
                 db.Items.Add(item);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -105,13 +127,13 @@ namespace LostAndFound.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Description,ImgUrl,Reward,Currency,Lat,Lon,FoundDate,LostDate,Lost")] Item item)
+        public ActionResult Edit([Bind(Include = "ID,UserId,Name,Description,Category,ImgUrl,Reward,Currency,Claim,Lat,Lon,County,Adress,FoundDate,LostDateFrom,LostDateTo,Lost")] Item item)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(item).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("MyItems");
             }
             return View(item);
         }

@@ -14,6 +14,8 @@
     <div class="form-horizontal">
         <h4>Item</h4>
         <hr />
+
+        <!--Title-->
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -23,6 +25,7 @@
             </div>
         </div>
 
+        <!--Desciption-->
         <div class="form-group">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -31,6 +34,16 @@
             </div>
         </div>
 
+        <!--Category-->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Category.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Category.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Category.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <!--Image-->
         <div class="form-group">
             @Html.LabelFor(model => model.ImgUrl, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -39,6 +52,7 @@
             </div>
         </div>
 
+        <!--Reward-->
         <div class="form-group">
             @Html.LabelFor(model => model.Reward, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -47,6 +61,7 @@
             </div>
         </div>
 
+        <!--Currency-->
         <div class="form-group">
             @Html.LabelFor(model => model.Currency, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -55,6 +70,16 @@
             </div>
         </div>
 
+        <!--Claim-->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Claim, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Claim, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Claim, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <!--Latitude-->
         <div class="form-group">
             @Html.LabelFor(model => model.Lat, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -63,6 +88,7 @@
             </div>
         </div>
 
+        <!--Longitude-->
         <div class="form-group">
             @Html.LabelFor(model => model.Lon, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -71,6 +97,25 @@
             </div>
         </div>
 
+        <!--County-->
+        <div class="form-group">
+            @Html.LabelFor(model => model.County.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.County.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.County.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <!--Adress-->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Adress, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Adress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Adress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <!--Found date-->
         <div class="form-group">
             @Html.LabelFor(model => model.FoundDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -79,14 +124,25 @@
             </div>
         </div>
 
+        <!--Lost date from-->
         <div class="form-group">
-            @Html.LabelFor(model => model.LostDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.LostDateFrom, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.LostDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LostDate, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.LostDateFrom, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LostDateFrom, "", new { @class = "text-danger" })
             </div>
         </div>
 
+        <!--Lost date to-->
+        <div class="form-group">
+            @Html.LabelFor(model => model.LostDateTo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LostDateTo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LostDateTo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <!--Lost. True = lost, False = found-->
         <div class="form-group">
             @Html.LabelFor(model => model.Lost, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
